@@ -11,8 +11,10 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        customOlive: "#535c13", // カスタムカラー
       },
     },
   },
   plugins: [],
 } satisfies Config;
+
