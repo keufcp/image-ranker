@@ -19,7 +19,7 @@ Next.js     v15.1.0
 csv-writer  v1.6.0
 ```
 
-## 使い方
+## 使い方 (手元でのテスト)
 
 1. 上記の動作環境を元に環境構築を行う
 1. このリポジトリをクローンする
@@ -40,10 +40,10 @@ csv-writer  v1.6.0
 
 ### 画像ファイルを変更・追加する
 
-1. `public\imgs`の中に以下のディレクトリ構成で画像ファイルを保存する
+1. `public/imgs`の中に以下のディレクトリ構成で画像ファイルを保存する
     ```bash
-    \imgs
-        ├─fuga # 画像のID 半角英数字が良い
+    /imgs
+        ├─fuga # 画像ID 半角英数字が良い
         │   a.png # 画像ファイル名
         │   b.png # 4パターンを扱うため a～d
         │   c.png # 全部バラバラも可
@@ -55,7 +55,7 @@ csv-writer  v1.6.0
             c.png
             d.png
     ```
-1. `src\mocks\list.ts`をコードエディタで開く
+1. `src/mocks/list.ts`をコードエディタで開く
     1.  1行目のパターンのリストを任意の数に変更する
         ```ts
         export const mockDataPatterns = ['A', 'B', 'C'];  // 3つの場合
@@ -63,26 +63,26 @@ csv-writer  v1.6.0
     1. 続きのコードを例にならって追加する
         ```ts
         export const mockDataItems = [
-        {
-            Item: {
-                ImgID: "hoge", // 画像ID 先程出てきたディレクトリ名
-                Pattern: {
-                    A: "a.png", //各画像のファイル名
-                    B: "b.png",
-                    C: "c.png", //3つの場合
+            {
+                Item: {
+                    ImgID: "hoge", // 画像ID 先程出てきたディレクトリ名
+                    Pattern: {
+                        A: "a.png", //各画像のファイル名
+                        B: "b.png",
+                        C: "c.png", //3つの場合
+                    },
                 },
             },
-        },
 
-        ...
+            ...
 
         ]
         ```
 1. 開発用サーバを立ち上げ動作を確認する
 
 > [!NOTE]
-> 画像枚数を増減した場合はCSSを書き換える必要あり
-> `src\app\ranking\page.tsx` の画像の並びを調整する部分を変更する
+> 画像枚数を増減した場合はCSSを書き換える必要あり．  
+> `src/app/ranking/page.tsx` 内の画像の並びを調整する部分を変更する．
 >    ```ts
 >    <div className="grid grid-cols-2 gap-4">
 >     ↓
@@ -96,7 +96,7 @@ csv-writer  v1.6.0
 ここでは紫に変更
 
 ```html
-// src\components\layout\header.tsx
+// src/components/layout/header.tsx
 <header className="bg-customOlive h-16 sticky flex items-center justify-between px-4">
  ↓
 <header className="bg-purple-900 h-16 sticky flex items-center justify-between px-4">
@@ -105,7 +105,7 @@ csv-writer  v1.6.0
 #### 注意事項に追記する
 
 ```html
-// src\app\page.tsx
+// src/app/page.tsx
 <ul className="list-inside list-disc text-gray-700 mt-2">
     <li>パソコンのブラウザで表示することをおすすめします</li>
     <li>回答中にブラウザの戻るボタンは押さないでください</li>
