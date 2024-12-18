@@ -1,4 +1,5 @@
 export const mockDataPatterns = ['A', 'B', 'C', 'D']; // パターンのリスト
+export const mockDataImgRanks = [1, 2, 3, 4]; // 順位を表すリスト
 
 // 画像の全パターンを列挙
 // ファイルパスで自動化しないのはIDとパターンを正確に対応させるため

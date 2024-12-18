@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Form from "next/form";
 import { useState } from "react";
-import { mockDataItems, mockDataPatterns } from "@/mocks/list";
+import { mockDataItems, mockDataPatterns, mockDataImgRanks } from "@/mocks/list";
 import { redirect } from "next/navigation";
 import { useEffect } from "react";
 import ProgressBar from "@/components/layout/ProgressBar";
@@ -148,7 +148,7 @@ export default function FormHome() {
                                 quality={100}
                             />
                             <div className="flex space-x-4 py-2">
-                                {[1, 2, 3, 4].map((rank) => (
+                                {mockDataImgRanks.map((rank) => (
                                     <label key={rank} className="flex flex-col items-center text-black text-2xl">
                                         <input
                                             type="radio"
