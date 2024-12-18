@@ -56,9 +56,10 @@ csv-writer  v1.6.0
             d.png
     ```
 1. `src/mocks/list.ts`をコードエディタで開く
-    1.  1行目のパターンのリストを任意の数に変更する
+    1.  1, 2行目のパターンのリストを任意の数に変更する (3つの場合)
         ```ts
-        export const mockDataPatterns = ['A', 'B', 'C'];  // 3つの場合
+        export const mockDataPatterns = ['A', 'B', 'C'];  // パターンのリスト 
+        export const mockDataImgRanks = [1, 2, 3]; // 順位を表すリスト
         ```
     1. 続きのコードを例にならって追加する
         ```ts
@@ -81,13 +82,14 @@ csv-writer  v1.6.0
 1. 開発用サーバを立ち上げ動作を確認する
 
 > [!NOTE]
-> 画像枚数を増減した場合はCSSを書き換える必要あり．  
+> 画像枚数を増減した場合はCSSとコードの両方を修正する必要あり．  
 > `src/app/ranking/page.tsx` 内の画像の並びを調整する部分を変更する．
->    ```ts
+>    ```html
 >    <div className="grid grid-cols-2 gap-4">
 >     ↓
 >    <div className="grid grid-cols-3 gap-4">
 >    ```
+> 動作検証時は4枚を同時に表示
 
 
 ### 見た目を変更する
@@ -107,7 +109,7 @@ csv-writer  v1.6.0
 ```html
 // src/app/page.tsx
 <ul className="list-inside list-disc text-gray-700 mt-2">
-    <li>パソコンのブラウザで表示することをおすすめします</li>
+    <li>PCのブラウザで表示することをおすすめします</li>
     <li>回答中にブラウザの戻るボタンは押さないでください</li>
     <li>回答中はブラウザのアドレスバーに触れないでください</li>
     <li>「次へ」ボタンを連打しないでください</li>
