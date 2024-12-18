@@ -15,6 +15,10 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ current, total }) => {
 };
 
 import { CSSProperties } from "react";
+import resolveConfig from 'tailwindcss/resolveConfig';
+import tailwindConfig from '../../../tailwind.config';
+
+const fullConfig = resolveConfig(tailwindConfig);
 
 const styles: { [key: string]: CSSProperties } = {
     container: {
@@ -27,7 +31,7 @@ const styles: { [key: string]: CSSProperties } = {
     },
     progress: {
         height: '100%',
-        backgroundColor: '#535c13', // プログレスバーの色
+        backgroundColor: fullConfig.theme.colors.customOlive, // カスタムカラーを同期
         transition: 'width 0.5s ease',
     },
     label: {
