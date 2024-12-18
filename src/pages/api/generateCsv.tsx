@@ -1,7 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { result_file } from "../../app/page";
-
-
 import { createObjectCsvWriter } from 'csv-writer';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -20,8 +18,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         try {
             await csvWriter.writeRecords(records)
-                .then(() => console.log('CSVファイルが作成されました。'))
-                .catch((error) => console.error('CSVファイルの作成中にエラーが発生しました:', error));
+                .then(() => console.log('A CSV file has been created.'))
+                .catch((error) => console.error('An error occurred while creating the CSV file:', error));
             res.status(200).json({ message: 'CSV file generated successfully' });
         } catch (error) {
             res.status(500).json({ message: 'Error generating CSV file', error });
