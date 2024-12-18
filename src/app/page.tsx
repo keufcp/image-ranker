@@ -40,7 +40,7 @@ export default function Home() {
 			<div className="bg-yellow-100 p-4 rounded-md mb-6">
 				<h2 className="text-xl font-semibold text-gray-800">注意事項</h2>
 				<ul className="list-inside list-disc text-gray-700 mt-2">
-					<li>パソコンのブラウザで表示することをおすすめします</li>
+					<li>PCのブラウザで表示することをおすすめします</li>
 					<li>回答中にブラウザの戻るボタンは押さないでください</li>
 					<li>回答中はブラウザのアドレスバーに触れないでください</li>
 					<li>「次へ」ボタンを連打しないでください</li>
