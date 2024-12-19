@@ -29,6 +29,9 @@ export default function FormHome() {
         D: null,
     });
 
+    // 全体のデータ（初期値は空の配列）
+    const [AllJson, setAllJson] = useState<Object[]>([]);
+
     // ラジオボタンの変更時の処理
     const handleChange = (imageKey: any, value: any) => {
         setSelectedRanks((prev) => ({
@@ -38,12 +41,6 @@ export default function FormHome() {
     };
 
     const saveToCsv = async () => {
-        const jsonData = Object.entries(selectedRanks).map(([key, value]) => ({
-            image_id: mockDataItems[ImgNumber].Item.ImgID,
-            pattern: key,
-            rank: value,
-        }));
-        console.log(jsonData);
         /* jasoDataの例
         [
             {
@@ -74,7 +71,7 @@ export default function FormHome() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ records: jsonData })  // クライアントデータを送信
+                body: JSON.stringify({ records: AllJson })  // クライアントデータを送信
             });
         } catch (error) {
             alert(`Error: ${error}`);
@@ -111,7 +108,12 @@ export default function FormHome() {
             return;
         }
         console.log(selectedRanks);
-        saveToCsv();
+        const jsonData = Object.entries(selectedRanks).map(([key, value]) => ({
+            image_id: mockDataItems[ImgNumber].Item.ImgID,
+            pattern: key,
+            rank: value,
+        }));
+        setAllJson(prevAllJson => [...prevAllJson, ...jsonData]);
         if (ImgNumber < mockDataItems.length - 1) {
             // selectedRanksをnullに設定 // ラジオボタンをリセット
             setSelectedRanks({ A: null, B: null, C: null, D: null });
@@ -122,6 +124,14 @@ export default function FormHome() {
             redirect('/thanks');
         }
     };
+
+    // AllJsonが更新された後に実行される処理
+    useEffect(() => {
+        console.log("AllJson updated:", AllJson);
+        if (ImgNumber === mockDataItems.length - 1) {
+            saveToCsv();
+        }
+    }, [AllJson]); //? <- AllJsonが変更されたときに実行される
 
     return (
         <div className="max-w-4xl mx-auto">
