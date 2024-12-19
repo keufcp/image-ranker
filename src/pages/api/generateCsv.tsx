@@ -1,13 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { result_file } from "../../app/page";
 import { createObjectCsvWriter } from 'csv-writer';
+import { getResultFilename } from "@/components/mkResultFile";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
         const { records } = req.body;  // クライアントから送られてきたデータを取得
 
         const csvWriter = createObjectCsvWriter({
-            path: `${result_file}`,
+            path: `${getResultFilename()}`,
             header: [
                 { id: 'image_id', title: 'image_id' },
                 { id: 'pattern', title: 'pattern' },
