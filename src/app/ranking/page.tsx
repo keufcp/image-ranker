@@ -6,6 +6,7 @@ import { mockDataItems, mockDataPatterns, mockDataImgRanks } from "@/mocks/list"
 import { redirect } from "next/navigation";
 import { useEffect } from "react";
 import ProgressBar from "@/components/layout/ProgressBar";
+import { waitForDebugger } from "inspector";
 
 // 画像のファイルパスを生成
 export function GetImagePath(ImgID: string, Pattern: string): string {
@@ -129,7 +130,9 @@ export default function FormHome() {
     useEffect(() => {
         console.log("AllJson updated:", AllJson);
         if (ImgNumber === mockDataItems.length - 1) {
+            if (AllJson.length === mockDataItems.length * mockDataPatterns.length) { // データが全て揃ってから送信
             saveToCsv();
+            }
         }
     }, [AllJson]); //? <- AllJsonが変更されたときに実行される
 
