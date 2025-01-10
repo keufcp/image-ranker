@@ -1,7 +1,7 @@
 ﻿export function Header() {
     return <header className="bg-customOlive h-16 sticky flex items-center justify-between px-4">
         <h1
-            className="text-whitefont-extrabold text-2xl"
+            className="text-white font-extrabold text-2xl"
             style={{ fontFamily: "Impact, sans-serif" }}
         >
             <b>主観評価実験用フォーム</b>
