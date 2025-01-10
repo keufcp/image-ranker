@@ -49,15 +49,13 @@ csv-writer  v1.6.0
     /imgs
         ├─fuga # 画像ID 半角英数字が良い
         │   a.png # 画像ファイル名
-        │   b.png # 4パターンを扱うため a～d
-        │   c.png # 全部バラバラも可
-        │   d.png
+        │   b.png # 3パターンを扱うとき a～c
+        │   c.png # ファイル名が全部バラバラでもOK
         │
         └─hoge
             a.png
             b.png
             c.png
-            d.png
     ```
 1. `src/mocks/list.ts`をコードエディタで開く
     1.  1, 2行目のパターンのリストを任意の数に変更する (3つの場合)
@@ -67,7 +65,7 @@ csv-writer  v1.6.0
         ```
     1. 続きのコードを例にならって追加する
         ```ts
-        export const mockDataItems = [
+        export const mockDataItems: Array<{ Item: ItemType }> = [
             {
                 Item: {
                     ImgID: "hoge", // 画像ID 先程出てきたディレクトリ名
