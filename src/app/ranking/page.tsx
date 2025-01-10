@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import ProgressBar from "@/components/layout/ProgressBar";
 
 // 画像のファイルパスを生成
-export function GetImagePath(ImgID: string, Pattern: string): string {
+function GetImagePath(ImgID: string, Pattern: string): string {
     return `/imgs/${ImgID}/${Pattern}`;
 };
 
@@ -21,8 +21,9 @@ export default function FormHome() {
         setImgNumber(ImgNumber + 1); // 状態を更新
     };
 
-    // 順位付けの状態管理
-    const [selectedRanks, setSelectedRanks] = useState({
+    const [selectedRanks, setSelectedRanks] = useState<{
+        [key: string]: null | undefined | string; // 型を明示
+    }>({
         A: null,
         B: null,
         C: null,
