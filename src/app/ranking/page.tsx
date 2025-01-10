@@ -130,7 +130,7 @@ export default function FormHome() {
         console.log("AllJson updated:", AllJson);
         if (ImgNumber === mockDataItems.length - 1) {
             if (AllJson.length === mockDataItems.length * mockDataPatterns.length) { // データが全て揃ってから送信
-            saveToCsv();
+                saveToCsv();
             }
         }
     }, [AllJson]); //? <- AllJsonが変更されたときに実行される
@@ -144,7 +144,7 @@ export default function FormHome() {
                 <div className="w-1/2">
                     <ProgressBar current={ImgNumber} total={mockDataItems.length} />
                     <div className="text-2xl font-bold text-center text-gray-600">
-                        {ImgNumber * 100 / mockDataItems.length}%
+                        {Math.round(ImgNumber * 100 / mockDataItems.length)}%
                     </div>
                 </div>
             </div>
