@@ -31,10 +31,10 @@ export default function FormHome() {
     });
 
     // 全体のデータ（初期値は空の配列）
-    const [AllJson, setAllJson] = useState<Object[]>([]);
+    const [AllJson, setAllJson] = useState<object[]>([]);
 
     // ラジオボタンの変更時の処理
-    const handleChange = (imageKey: any, value: any) => {
+    const handleChange = (imageKey: string, value: null | undefined | string) => { // 型を明示
         setSelectedRanks((prev) => ({
             ...prev,
             [imageKey]: value,
@@ -67,7 +67,7 @@ export default function FormHome() {
         ]
         */
         try {
-            const response = await fetch('/api/generateCsv', {
+            await fetch('/api/generateCsv', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -100,7 +100,7 @@ export default function FormHome() {
         shuffleImages();
     }, []);
 
-    const handleSubmit = (event: any) => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         // ラジオボタンが全て選択されているか確認
         const allSelected = Object.keys(selectedRanks).every(key => selectedRanks[key] !== undefined && selectedRanks[key] !== null);
