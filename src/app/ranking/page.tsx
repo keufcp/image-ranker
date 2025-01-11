@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import ProgressBar from "@/components/layout/ProgressBar";
 
 // 画像のファイルパスを生成
-export function GetImagePath(ImgID: string, Pattern: string): string {
+function GetImagePath(ImgID: string, Pattern: string): string {
     return `/imgs/${ImgID}/${Pattern}`;
 };
 
@@ -21,8 +21,9 @@ export default function FormHome() {
         setImgNumber(ImgNumber + 1); // 状態を更新
     };
 
-    // 順位付けの状態管理
-    const [selectedRanks, setSelectedRanks] = useState({
+    const [selectedRanks, setSelectedRanks] = useState<{
+        [key: string]: null | undefined | string; // 型を明示
+    }>({
         A: null,
         B: null,
         C: null,
@@ -30,10 +31,10 @@ export default function FormHome() {
     });
 
     // 全体のデータ（初期値は空の配列）
-    const [AllJson, setAllJson] = useState<Object[]>([]);
+    const [AllJson, setAllJson] = useState<object[]>([]);
 
     // ラジオボタンの変更時の処理
-    const handleChange = (imageKey: any, value: any) => {
+    const handleChange = (imageKey: string, value: null | undefined | string) => { // 型を明示
         setSelectedRanks((prev) => ({
             ...prev,
             [imageKey]: value,
@@ -66,7 +67,7 @@ export default function FormHome() {
         ]
         */
         try {
-            const response = await fetch('/api/generateCsv', {
+            await fetch('/api/generateCsv', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -99,7 +100,7 @@ export default function FormHome() {
         shuffleImages();
     }, []);
 
-    const handleSubmit = (event: any) => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         // ラジオボタンが全て選択されているか確認
         const allSelected = Object.keys(selectedRanks).every(key => selectedRanks[key] !== undefined && selectedRanks[key] !== null);
@@ -130,7 +131,7 @@ export default function FormHome() {
         console.log("AllJson updated:", AllJson);
         if (ImgNumber === mockDataItems.length - 1) {
             if (AllJson.length === mockDataItems.length * mockDataPatterns.length) { // データが全て揃ってから送信
-            saveToCsv();
+                saveToCsv();
             }
         }
     }, [AllJson]); //? <- AllJsonが変更されたときに実行される
@@ -144,7 +145,7 @@ export default function FormHome() {
                 <div className="w-1/2">
                     <ProgressBar current={ImgNumber} total={mockDataItems.length} />
                     <div className="text-2xl font-bold text-center text-gray-600">
-                        {ImgNumber * 100 / mockDataItems.length}%
+                        {Math.round(ImgNumber * 100 / mockDataItems.length)}%
                     </div>
                 </div>
             </div>
