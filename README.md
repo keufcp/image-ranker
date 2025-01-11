@@ -125,9 +125,10 @@ csv-writer  v1.6.0
 ```
 
 ## 謝辞
-本プロジェクトの作成にあたり，きっかけを与えてくださり，また React および Next.js に関するご指導を賜りました tamago.tech の皆様に心より感謝申し上げます．
+本プロジェクトの作成にあたり，きっかけを与えてくださり，また React および Next.js に関するご指導を賜りました tamago.tech の皆様に心より感謝申し上げます．   
 
-
+## 画像提供元
+[MIT-Adobe FiveK Dataset](https://data.csail.mit.edu/graphics/fivek/)の画像をサンプルとして使用しています．
 
 <!-- This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
