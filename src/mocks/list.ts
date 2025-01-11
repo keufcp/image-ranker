@@ -7,7 +7,7 @@ export const mockDataImgRanks = [1, 2, 3, 4]; // 順位を表すリスト
 export const mockDataItems = [
     {
         Item: {
-            ImgID: "hoge",
+            ImgID: "a2532",
             Pattern: {
                 A: "a.png",
                 B: "b.png",
@@ -18,7 +18,7 @@ export const mockDataItems = [
     },
     {
         Item: {
-            ImgID: "fuga",
+            ImgID: "a2552",
             Pattern: {
                 A: "a.png",
                 B: "b.png",
@@ -27,4 +27,103 @@ export const mockDataItems = [
             },
         },
     },
+    {
+        Item: {
+            ImgID: "a2557",
+            Pattern: {
+                A: "a.png",
+                B: "b.png",
+                C: "c.png",
+                D: "d.png",
+            },
+        },
+    },
+    {
+        Item: {
+            ImgID: "a2584",
+            Pattern: {
+                A: "a.png",
+                B: "b.png",
+                C: "c.png",
+                D: "d.png",
+            },
+        },
+    },
+    {
+        Item: {
+            ImgID: "a2586",
+            Pattern: {
+                A: "a.png",
+                B: "b.png",
+                C: "c.png",
+                D: "d.png",
+            },
+        },
+    },
+    {
+        Item: {
+            ImgID: "a2671",
+            Pattern: {
+                A: "a.png",
+                B: "b.png",
+                C: "c.png",
+                D: "d.png",
+            },
+        },
+    },
+    {
+        Item: {
+            ImgID: "a2683",
+            Pattern: {
+                A: "a.png",
+                B: "b.png",
+                C: "c.png",
+                D: "d.png",
+            },
+        },
+    },
+    {
+        Item: {
+            ImgID: "a2800",
+            Pattern: {
+                A: "a.png",
+                B: "b.png",
+                C: "c.png",
+                D: "d.png",
+            },
+        },
+    },
+    {
+        Item: {
+            ImgID: "a4660",
+            Pattern: {
+                A: "a.png",
+                B: "b.png",
+                C: "c.png",
+                D: "d.png",
+            },
+        },
+    },
+    {
+        Item: {
+            ImgID: "a4685",
+            Pattern: {
+                A: "a.png",
+                B: "b.png",
+                C: "c.png",
+                D: "d.png",
+            },
+        },
+    },
+    {
+        Item: {
+            ImgID: "a4691",
+            Pattern: {
+                A: "a.png",
+                B: "b.png",
+                C: "c.png",
+                D: "d.png",
+            },
+        },
+    }
 ];
