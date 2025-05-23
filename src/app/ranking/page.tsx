@@ -1,11 +1,18 @@
 'use client'
 import Image from 'next/image'
 import Form from 'next/form'
-import { useState } from 'react'
-import { mockDataItems, mockDataPatterns, mockDataImgRanks } from '@/mocks/list'
+import { useState, useCallback } from 'react'
+import {
+  mockDataItems,
+  mockDataPatterns,
+  mockDataImgRanks,
+  PatternKey,
+  RankValue,
+} from '@/mocks/list'
 import { redirect } from 'next/navigation'
 import { useEffect } from 'react'
 import ProgressBar from '@/components/layout/ProgressBar'
+import { getGridColsClass } from '@/utils/layoutUtils'
 
 // 画像のファイルパスを生成
 function GetImagePath(ImgID: string, Pattern: string): string {
@@ -21,28 +28,28 @@ export default function FormHome() {
     setImgNumber(ImgNumber + 1) // 状態を更新
   }
 
-  const [selectedRanks, setSelectedRanks] = useState<{
-    [key: string]: null | undefined | string // 型を明示
-  }>({
-    A: null,
-    B: null,
-    C: null,
-    D: null,
+  const [selectedRanks, setSelectedRanks] = useState<
+    Record<PatternKey, RankValue | null>
+  >(() => {
+    const initialRanks = {} as Record<PatternKey, RankValue | null>
+    for (const pattern of mockDataPatterns) {
+      initialRanks[pattern] = null
+    }
+    return initialRanks
   })
 
   // 全体のデータ（初期値は空の配列）
   const [AllJson, setAllJson] = useState<object[]>([])
 
   // ラジオボタンの変更時の処理
-  const handleChange = (imageKey: string, value: null | undefined | string) => {
-    // 型を明示
+  const handleChange = (imageKey: PatternKey, value: string | null) => {
     setSelectedRanks((prev) => ({
       ...prev,
-      [imageKey]: value,
+      [imageKey]: value !== null ? (parseInt(value, 10) as RankValue) : null,
     }))
   }
 
-  const saveToCsv = async () => {
+  const saveToCsv = useCallback(async () => {
     /* jasoDataの例
         [
             {
@@ -78,14 +85,16 @@ export default function FormHome() {
     } catch (error) {
       alert(`Error: ${error}`)
     }
-  }
+  }, [AllJson])
 
   // 画像の表示順序を設定
-  const [shuffledImages, setShuffledImages] = useState(mockDataPatterns)
+  const [shuffledImages, setShuffledImages] = useState<PatternKey[]>([
+    ...mockDataPatterns,
+  ])
 
   // 配列をランダムにシャッフルする関数
-  const shuffleImages = () => {
-    const shuffleArray = (array: string[]) => {
+  const shuffleImages = useCallback(() => {
+    const shuffleArray = (array: PatternKey[]): PatternKey[] => {
       const shuffled = [...array]
       for (let i = shuffled.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1))
@@ -93,18 +102,19 @@ export default function FormHome() {
       }
       return shuffled
     }
-    setShuffledImages(shuffleArray(shuffledImages))
-  }
+    // Ensure we're passing a new array to prevent issues with React's state update batching or direct mutation
+    setShuffledImages((currentImages) => shuffleArray([...currentImages]))
+  }, []) // shuffleImages itself doesn't depend on shuffledImages to be recreated. It operates on current state.
 
   // ページが読み込まれた時に画像をシャッフル
   useEffect(() => {
     shuffleImages()
-  }, [])
+  }, [shuffleImages])
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     // ラジオボタンが全て選択されているか確認
-    const allSelected = Object.keys(selectedRanks).every(
+    const allSelected = (Object.keys(selectedRanks) as PatternKey[]).every(
       (key) => selectedRanks[key] !== undefined && selectedRanks[key] !== null,
     )
     if (!allSelected) {
@@ -112,7 +122,9 @@ export default function FormHome() {
       return
     }
     console.log(selectedRanks)
-    const jsonData = Object.entries(selectedRanks).map(([key, value]) => ({
+    const jsonData = (
+      Object.entries(selectedRanks) as [PatternKey, RankValue][]
+    ).map(([key, value]) => ({
       image_id: mockDataItems[ImgNumber].Item.ImgID,
       pattern: key,
       rank: value,
@@ -120,7 +132,11 @@ export default function FormHome() {
     setAllJson((prevAllJson) => [...prevAllJson, ...jsonData])
     if (ImgNumber < mockDataItems.length - 1) {
       // selectedRanksをnullに設定 // ラジオボタンをリセット
-      setSelectedRanks({ A: null, B: null, C: null, D: null })
+      const initialRanks = {} as Record<PatternKey, RankValue | null>
+      for (const pattern of mockDataPatterns) {
+        initialRanks[pattern] = null
+      }
+      setSelectedRanks(initialRanks)
       incrementImgNumber()
       shuffleImages() // ランダムにシャッフル
     } else {
@@ -137,7 +153,7 @@ export default function FormHome() {
         saveToCsv()
       }
     }
-  }, [AllJson]) //? <- AllJsonが変更されたときに実行される
+  }, [AllJson, ImgNumber, saveToCsv])
 
   return (
     <div className='mx-auto max-w-4xl'>
@@ -153,13 +169,15 @@ export default function FormHome() {
         </div>
       </div>
       <Form action='' className='space-y-4' onSubmit={handleSubmit}>
-        <div className='grid grid-cols-2 gap-4'>
-          {shuffledImages.map((imageKey) => (
+        <div
+          className={`grid ${getGridColsClass(mockDataPatterns.length)} gap-4`}
+        >
+          {shuffledImages.map((imageKey: PatternKey) => (
             <div key={imageKey} className='flex flex-col items-center'>
               <Image
                 src={GetImagePath(
                   mockDataItems[ImgNumber].Item.ImgID,
-                  mockDataItems[ImgNumber].Item.Pattern[imageKey],
+                  mockDataItems[ImgNumber].Item.Pattern[imageKey], // imageKey is now PatternKey
                 )}
                 width={300}
                 height={300}
@@ -167,16 +185,16 @@ export default function FormHome() {
                 quality={100}
               />
               <div className='flex space-x-4 py-2'>
-                {mockDataImgRanks.map((rank) => (
+                {mockDataImgRanks.map((rank: RankValue) => (
                   <label
                     key={rank}
                     className='flex flex-col items-center text-2xl text-black'
                   >
                     <input
                       type='radio'
-                      name={imageKey}
+                      name={imageKey} // imageKey is PatternKey
                       value={rank}
-                      checked={selectedRanks[imageKey] === String(rank)}
+                      checked={selectedRanks[imageKey] === rank}
                       onChange={(e) => handleChange(imageKey, e.target.value)}
                       className='h-6 w-6'
                     />

@@ -1,10 +1,13 @@
-export const mockDataPatterns = ['A', 'B', 'C', 'D'] // パターンのリスト
-export const mockDataImgRanks = [1, 2, 3, 4] // 順位を表すリスト
+export const mockDataPatterns = ['A', 'B', 'C', 'D'] as const // パターンのリスト
+export const mockDataImgRanks = [1, 2, 3, 4] as const // 順位を表すリスト
 
 // 型定義
+export type PatternKey = (typeof mockDataPatterns)[number]
+export type RankValue = (typeof mockDataImgRanks)[number]
+
 type ItemType = {
   ImgID: string
-  Pattern: Record<string, string> // ここで動的なキーを指定
+  Pattern: Record<PatternKey, string> // ここで動的なキーを指定
 }
 
 // 画像の全パターンを列挙
