@@ -16,6 +16,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: 'image-ranker',
   description: '画像順位付けアンケートフォーム',
+  icons: {
+    icon: '/favicon.svg',
+  },
 }
 
 export default function RootLayout({
@@ -28,7 +31,6 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} bg-white antialiased`}
       >
-        <link rel='icon' href='/favicon.svg' />
         <Header />
         {children}
       </body>
