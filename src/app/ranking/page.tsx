@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import Form from 'next/form'
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { mockDataItems, mockDataPatterns, mockDataImgRanks } from '@/mocks/list'
 import { redirect } from 'next/navigation'
 import { useEffect } from 'react'
@@ -42,7 +42,7 @@ export default function FormHome() {
     }))
   }
 
-  const saveToCsv = async () => {
+  const saveToCsv = useCallback(async () => {
     /* jasoDataの例
         [
             {
@@ -78,13 +78,13 @@ export default function FormHome() {
     } catch (error) {
       alert(`Error: ${error}`)
     }
-  }
+  }, [AllJson])
 
   // 画像の表示順序を設定
   const [shuffledImages, setShuffledImages] = useState(mockDataPatterns)
 
   // 配列をランダムにシャッフルする関数
-  const shuffleImages = () => {
+  const shuffleImages = useCallback(() => {
     const shuffleArray = (array: string[]) => {
       const shuffled = [...array]
       for (let i = shuffled.length - 1; i > 0; i--) {
@@ -93,13 +93,13 @@ export default function FormHome() {
       }
       return shuffled
     }
-    setShuffledImages(shuffleArray(shuffledImages))
-  }
+    setShuffledImages(shuffleArray(mockDataPatterns))
+  }, [])
 
   // ページが読み込まれた時に画像をシャッフル
   useEffect(() => {
     shuffleImages()
-  }, [])
+  }, [shuffleImages])
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -137,7 +137,7 @@ export default function FormHome() {
         saveToCsv()
       }
     }
-  }, [AllJson]) //? <- AllJsonが変更されたときに実行される
+  }, [AllJson, ImgNumber, saveToCsv]) //? <- AllJsonが変更されたときに実行される
 
   return (
     <div className='mx-auto max-w-4xl'>
