@@ -21,7 +21,7 @@
   --foreground: #171717;
 }
 
-// 必要であればダークテーマ用の色を指定
+/* 必要であればダークテーマ用の色を指定 */
 /* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
