@@ -141,7 +141,7 @@ export default function FormHome() {
 
   return (
     <div className='mx-auto max-w-4xl'>
-      <h1 className='mb-4 mt-4 text-center text-3xl font-bold text-gray-800'>
+      <h1 className='mt-4 mb-4 text-center text-3xl font-bold text-gray-800'>
         審美的品質が高いと思う順に順位付けをしてください
       </h1>
       <div className='flex justify-center'>
@@ -190,7 +190,7 @@ export default function FormHome() {
         <div className='flex justify-center'>
           <button
             type='submit'
-            className='w-full rounded-md bg-green-500 py-4 text-2xl font-bold text-white shadow-md hover:bg-green-600 focus:outline-hidden focus:ring-2 focus:ring-green-300'
+            className='w-full rounded-md bg-green-500 py-4 text-2xl font-bold text-white shadow-md hover:bg-green-600 focus:ring-2 focus:ring-green-300 focus:outline-hidden'
           >
             次へ
           </button>

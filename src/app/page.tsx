@@ -25,7 +25,7 @@ export default function Home() {
 
       <div className='text-center'>
         <Link href='/ranking'>
-          <button className='w-full rounded-md bg-green-500 py-4 text-3xl font-bold text-white shadow-md hover:bg-green-600 focus:outline-hidden focus:ring-2 focus:ring-green-300'>
+          <button className='w-full rounded-md bg-green-500 py-4 text-3xl font-bold text-white shadow-md hover:bg-green-600 focus:ring-2 focus:ring-green-300 focus:outline-hidden'>
             回答を開始
           </button>
         </Link>

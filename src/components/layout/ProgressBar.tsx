@@ -7,11 +7,11 @@ interface ProgressBarProps {
 
 const ProgressBar: React.FC<ProgressBarProps> = ({ current, total }) => {
   const percentage = (current / total) * 100
-  
+
   return (
-    <div className="w-full h-5 bg-gray-200 rounded-xl overflow-hidden relative">
+    <div className='relative h-5 w-full overflow-hidden rounded-xl bg-gray-200'>
       <div
-        className="h-full bg-custom-olive transition-all duration-500 ease-in-out"
+        className='bg-custom-olive h-full transition-all duration-500 ease-in-out'
         style={{ width: `${percentage}%` }}
       />
     </div>
