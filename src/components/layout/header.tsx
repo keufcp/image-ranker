@@ -1,6 +1,6 @@
 ﻿export function Header() {
   return (
-    <header className='sticky flex h-16 items-center justify-between bg-customOlive px-4'>
+    <header className='sticky flex h-16 items-center justify-between bg-custom-olive px-4'>
       <h1
         className='text-2xl font-extrabold text-white'
         style={{ fontFamily: 'Impact, sans-serif' }}

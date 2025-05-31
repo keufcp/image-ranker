@@ -101,7 +101,7 @@ csv-writer  v1.6.0
 
 ```html
 // src/components/layout/header.tsx
-<header className="bg-customOlive h-16 sticky flex items-center justify-between px-4">
+<header className="bg-custom-olive h-16 sticky flex items-center justify-between px-4">
  ↓
 <header className="bg-purple-900 h-16 sticky flex items-center justify-between px-4">
 

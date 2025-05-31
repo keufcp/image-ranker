@@ -190,7 +190,7 @@ export default function FormHome() {
         <div className='flex justify-center'>
           <button
             type='submit'
-            className='w-full rounded-md bg-green-500 py-4 text-2xl font-bold text-white shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-300'
+            className='w-full rounded-md bg-green-500 py-4 text-2xl font-bold text-white shadow-md hover:bg-green-600 focus:outline-hidden focus:ring-2 focus:ring-green-300'
           >
             次へ
           </button>
