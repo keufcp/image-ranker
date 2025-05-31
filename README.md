@@ -10,12 +10,13 @@
 - サーバ内にCSVファイルを保存
 
 ## 開発環境
+
 あくまで開発時の環境です．「絶対にこれじゃないと動かない」というものではありません．
 
 ```
-node        v22.12.0
+node        v22.16.0
 React       v19.0.0
-Next.js     v15.1.0
+Next.js     v15.3.2
 csv-writer  v1.6.0
 ```
 
@@ -24,110 +25,146 @@ csv-writer  v1.6.0
 1. 上記の動作環境を元に環境構築を行う
 1. このリポジトリをクローンする
 1. 下記のコマンドを用いて環境を構築する (nodeインストール済みを想定)
-    ```bash
-    npm install next@15.1.0 react@19.0.0 react-dom@19.0.0
-    ```
+   ```bash
+   npm install
+   ```
 1. 開発用サーバを立てる
-    ```bash
-    npm run dev
-    # or
-    yarn dev
-    # or
-    pnpm dev
-    # or
-    bun dev
-    ```
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   # or
+   pnpm dev
+   # or
+   bun dev
+   ```
 1. ブラウザで `http://localhost:3000` にアクセスする
 1. アンケートを完了すると `public/` に結果のCSVファイルが保存される
+
+## 使い方 (本番運用)
+
+1. 上記の動作環境を元に環境構築を行う
+1. このリポジトリをクローンする
+1. 下記のコマンドを用いて環境を構築する (nodeインストール済みを想定)
+   ```bash
+   npm ci
+   ```
+1. ビルドを行う
+   ```bash
+   npm run build
+   ```
+1. サーバを立ち上げる
+   ```bash
+   npm run start
+   ```
+1. ブラウザでアンケートサイトへアクセスする1. サーバと同一のPCからアクセスする場合: ブラウザで `http://localhost:3000` にアクセスする1. 他のPCからアクセスする場合: 1. ブラウザで `http://[IPアドレス]:3000` にアクセスする (ポート開放が必要な場合あり) 1. ドメインを取得するか，適切なURL発行システムを利用する
+
+> [!NOTE]
+>
+> - [ngrok](https://ngrok.com/): ローカル環境で稼働しているアプリケーションをインターネット経由で公開するツール
+> - [Duck DNS](https://www.duckdns.org/): IPアドレスを`duckdns.org`のサブドメインに割り当てることができる無料サービス
 
 ## カスタマイズ
 
 ### 画像ファイルを変更・追加する
 
 1. `public/imgs`の中に以下のディレクトリ構成で画像ファイルを保存する
-    ```bash
-    /imgs
-        ├─fuga # 画像ID 半角英数字が良い
-        │   a.png # 画像ファイル名
-        │   b.png # 3パターンを扱うとき a～c
-        │   c.png # ファイル名が全部バラバラでもOK
-        │
-        └─hoge
-            a.png
-            b.png
-            c.png
-    ```
+   ```bash
+   /imgs
+       ├─fuga # 画像ID 半角英数字が良い
+       │   a.png # 画像ファイル名
+       │   b.png # 3パターンを扱うとき a～c
+       │   c.png # ファイル名が全部バラバラでもOK
+       │
+       └─hoge
+           a.png
+           b.png
+           c.png
+   ```
 1. `src/mocks/list.ts`をコードエディタで開く
-    1.  1, 2行目のパターンのリストを任意の数に変更する (3つの場合)
-        ```ts
-        export const mockDataPatterns = ['A', 'B', 'C'];  // パターンのリスト 
-        export const mockDataImgRanks = [1, 2, 3]; // 順位を表すリスト
-        ```
-    1. 続きのコードを例にならって追加する
-        ```ts
-        export const mockDataItems: Array<{ Item: ItemType }> = [
-            {
-                Item: {
-                    ImgID: "hoge", // 画像ID 先程出てきたディレクトリ名
-                    Pattern: {
-                        A: "a.png", //各画像のファイル名
-                        B: "b.png",
-                        C: "c.png", //3つの場合
-                    },
-                },
+
+   1. 1, 2行目のパターンのリストを任意の数に変更する (3つの場合)
+      ```ts
+      export const mockDataPatterns = ['A', 'B', 'C'] // パターンのリスト
+      export const mockDataImgRanks = [1, 2, 3] // 順位を表すリスト
+      ```
+   1. 続きのコードを例にならって追加する
+
+      ```ts
+      export const mockDataItems: Array<{ Item: ItemType }> = [
+        {
+          Item: {
+            ImgID: "hoge", // 画像ID 先程出てきたディレクトリ名
+            Pattern: {
+              A: "a.png", //各画像のファイル名
+              B: "b.png",
+              C: "c.png", //3つの場合
             },
+          },
+        },
 
-            ...
+        ...
 
-        ]
-        ```
+      ]
+      ```
+
 1. 開発用サーバを立ち上げ動作を確認する
 
 > [!NOTE]
 > 画像枚数を増減した場合はCSSとコードの両方を修正する必要あり．  
 > `src/app/ranking/page.tsx` 内の画像の並びを調整する部分を変更する．
->    ```html
->    <div className="grid grid-cols-2 gap-4">
->     ↓
->    <div className="grid grid-cols-3 gap-4">
->    ```
+>
+> ```html
+> <div className="grid grid-cols-2 gap-4">
+>   ↓
+>   <div className="grid grid-cols-3 gap-4"></div>
+> </div>
+> ```
+>
 > 動作検証時は4枚を同時に表示
 
-
 ### 見た目を変更する
+
 #### ヘッダの色を変える
+
 デフォルトではカスタムカラーを設定している  
 ここでは紫に変更
 
 ```html
 // src/components/layout/header.tsx
-<header className="bg-custom-olive h-16 sticky flex items-center justify-between px-4">
- ↓
-<header className="bg-purple-900 h-16 sticky flex items-center justify-between px-4">
-
+<header
+  className="bg-custom-olive h-16 sticky flex items-center justify-between px-4"
+>
+  ↓
+  <header
+    className="bg-purple-900 h-16 sticky flex items-center justify-between px-4"
+  ></header>
+</header>
 ```
+
 #### 注意事項に追記する
 
 ```html
 // src/app/page.tsx
 <ul className="list-inside list-disc text-gray-700 mt-2">
-    <li>PCのブラウザで表示することをおすすめします</li>
-    <li>回答中にブラウザの戻るボタンは押さないでください</li>
-    <li>回答中はブラウザのアドレスバーに触れないでください</li>
-    <li>「次へ」ボタンを連打しないでください</li>
-    <li>全部で{mockDataItems.length}セットの回答項目があります</li>
+  <li>PCのブラウザで表示することをおすすめします</li>
+  <li>回答中にブラウザの戻るボタンは押さないでください</li>
+  <li>回答中はブラウザのアドレスバーに触れないでください</li>
+  <li>「次へ」ボタンを連打しないでください</li>
+  <li>全部で{mockDataItems.length}セットの回答項目があります</li>
 
-    <li> ここに追加！ </li>
-    <li> ここに追加！ </li>
-    <li> ここに追加！ </li>
+  <li>ここに追加！</li>
+  <li>ここに追加！</li>
+  <li>ここに追加！</li>
 </ul>
-
 ```
 
 ## 謝辞
-本プロジェクトの作成にあたり，きっかけを与えてくださり，また React および Next.js に関するご指導を賜りました tamago.tech の皆様に心より感謝申し上げます．   
+
+本プロジェクトの作成にあたり，きっかけを与えてくださり，またReactおよびNext.jsに関するご指導を賜りましたtamago.techの皆様に心より感謝申し上げます．
 
 ## 画像提供元
+
 [MIT-Adobe FiveK Dataset](https://data.csail.mit.edu/graphics/fivek/)の画像をサンプルとして使用しています．
 
 <!-- This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
