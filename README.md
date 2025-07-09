@@ -117,8 +117,8 @@ csv-writer  v1.6.0
 > ```html
 > <div className="grid grid-cols-2 gap-4">
 >   ↓
->   <div className="grid grid-cols-3 gap-4"></div>
-> </div>
+> <div className="grid grid-cols-3 gap-4">
+> 
 > ```
 >
 > 動作検証時は4枚を同時に表示
@@ -132,14 +132,9 @@ csv-writer  v1.6.0
 
 ```html
 // src/components/layout/header.tsx
-<header
-  className="bg-custom-olive h-16 sticky flex items-center justify-between px-4"
->
+<header className="bg-custom-olive h-16 sticky flex items-center justify-between px-4">
   ↓
-  <header
-    className="bg-purple-900 h-16 sticky flex items-center justify-between px-4"
-  ></header>
-</header>
+<header className="bg-purple-900 h-16 sticky flex items-center justify-between px-4">
 ```
 
 #### 注意事項に追記する
