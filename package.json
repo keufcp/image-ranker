@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "csv-writer": "^1.6.0",
-    "next": "16.1.3",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3"
+    "next": "16.1.5",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
